@@ -8,13 +8,10 @@ public class ScoreScript : MonoBehaviour
     //合計得点
     private int totalScore = 0;
 
-    //加算点
-    private int addScore = 0;
 
     //スコアを表示するテキスト
     private GameObject scoreText;
 
-    private int degree = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +26,7 @@ public class ScoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Scoreを表示
-        this.scoreText.GetComponent<Text>().text = " " + totalScore;
+     
     }
 
     //衝突時に加算
@@ -39,23 +35,27 @@ public class ScoreScript : MonoBehaviour
         //タグによって加算点を変える
         if (other.gameObject.tag == "SmallStarTag")
         {
-            this.addScore = 1;
+            this.AddScore(1);
         }
         else if (other.gameObject.tag == "LargeStarTag")
         {
-            this.addScore = 5;
+            this.AddScore(5);
         }
         else if (other.gameObject.tag == "SmallCloudTag")
         {
-            this.addScore = 50;
+            this.AddScore(50);
         }
         else if (other.gameObject.tag == "LargeCloudTag")
         {
-            this.addScore = 10;
+            this.AddScore(10);
         }
-        //合計得点に点数を加算
-        totalScore += addScore;
-        //addScoreリセット
-        this.addScore = 0;
+       
     }
+    //合計得点に点数を加算する関数
+    public void AddScore(int score)
+    {
+        totalScore += score;
+        this.scoreText.GetComponent<Text>().text = " " + totalScore;
+    }
+
 }
